@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.shufange.mavenwebproject.model.Book" table="book">
+        <id name="isbn" type="int">
+            <column name="ISBN" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        
+        <many-to-one name="owner" column="Owner"
+        class="com.shufange.mavenwebproject.model.User" not-null="true"/> 
+                
+        <!--property element mapping java class properties and table column can be written as such -->
+        <property name="bookName" type="string" column="Name" length="20" not-null="true"/>
+        <!--or as such -->
+        <property name="imageNo" type="int" column="ImgNo" length="20" not-null="true"/>       
+    </class>
+    
+    <class name="com.shufange.mavenwebproject.model.User" table="BOOKUSER"> 
+        <meta attribute="class-description"/>
+        <id name="userId" type="int" column="USER_ID">
+            <generator class="assigned"/>
+        </id>
+        
+        <many-to-one name="group" column="GROUP"
+        class="com.shufange.mavenwebproject.model.Group" not-null="true"/> 
+           
+        <property name="userName" type="string" column="USER_NAME" length="30" not-null="true"/>
+        <property name="createdDate" type="date" column="CREATED_DATE" not-null="true"/>
+        <property name="password" type="string" column="PASSWORD" not-null="true"/>
+    </class>
+    
+    <class name="com.shufange.mavenwebproject.model.Group" table="USERGROUP"> 
+        <meta attribute="class-description"/>
+        <id name="groupId" type="int" column="GROUP_ID">
+            <generator class="assigned"/>
+        </id>
+        <property name="groupName" type="string" column="GROUP_NAME" length="45" not-null="true"/>
+    </class>
+ 
+</hibernate-mapping>
